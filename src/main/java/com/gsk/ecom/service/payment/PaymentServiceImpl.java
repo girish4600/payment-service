@@ -1,5 +1,6 @@
 package com.gsk.ecom.service.payment;
 
+import com.gsk.ecom.mapper.payment.Payment;
 import com.gsk.ecom.mapper.payment.PaymentMapper;
 import com.gsk.ecom.model.payment.PaymentMethod;
 import com.gsk.ecom.model.payment.PaymentRequest;
@@ -36,7 +37,8 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public @Nullable Integer createPayment(PaymentRequest paymentRequest) {
         log.info("======================== Generating payment ========================");
-        var payment = payments.put(paymentId++, mapper.dtoToEntity(paymentRequest));
+        PaymentResponse payment = mapper.dtoToEntity(paymentRequest, paymentId);
+         payments.put(paymentId++, payment);
         log.info("Customer Details :: {}",paymentRequest.customer());
        /* notificationProducer.sendNotification(
                new PaymentNotificationRequest(

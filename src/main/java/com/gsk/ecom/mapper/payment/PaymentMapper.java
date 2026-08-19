@@ -7,10 +7,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class PaymentMapper {
-    public PaymentResponse dtoToEntity(PaymentRequest paymentRequest) {
+    public PaymentResponse dtoToEntity(PaymentRequest paymentRequest, Integer paymentId) {
         return PaymentResponse.builder()
                 .amount(paymentRequest.amount())
                 .paymentMethod(paymentRequest.paymentMethod())
+                .id(paymentId)
                 .orderId(paymentRequest.orderId())
                 .build();
     }
