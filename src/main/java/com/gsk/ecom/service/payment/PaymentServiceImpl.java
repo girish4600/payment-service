@@ -3,8 +3,10 @@ package com.gsk.ecom.service.payment;
 import com.gsk.ecom.mapper.payment.Payment;
 import com.gsk.ecom.mapper.payment.PaymentMapper;
 import com.gsk.ecom.model.payment.PaymentMethod;
+import com.gsk.ecom.model.payment.PaymentNotificationRequest;
 import com.gsk.ecom.model.payment.PaymentRequest;
 import com.gsk.ecom.model.payment.PaymentResponse;
+import com.gsk.ecom.notification.NotificationProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +33,8 @@ public class PaymentServiceImpl implements PaymentService {
     @Autowired
     private PaymentMapper mapper;
 
-//    @Autowired
-//    private NotificationProducer notificationProducer;
+    @Autowired
+    private NotificationProducer notificationProducer;
 
     @Override
     public @Nullable Integer createPayment(PaymentRequest paymentRequest) {
@@ -40,7 +42,7 @@ public class PaymentServiceImpl implements PaymentService {
         PaymentResponse payment = mapper.dtoToEntity(paymentRequest, paymentId);
          payments.put(paymentId++, payment);
         log.info("Customer Details :: {}",paymentRequest.customer());
-       /* notificationProducer.sendNotification(
+        notificationProducer.sendNotification(
                new PaymentNotificationRequest(
                        paymentRequest.orderReference(),
                        paymentRequest.amount(),
@@ -49,7 +51,7 @@ public class PaymentServiceImpl implements PaymentService {
                         paymentRequest.customer().lastName(),
                         paymentRequest.customer().email()
                 )
-        );*/
+        );
         return payment.id();
     }
 
