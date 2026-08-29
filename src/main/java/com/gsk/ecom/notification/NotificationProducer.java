@@ -1,5 +1,6 @@
 package com.gsk.ecom.notification;
 
+import com.google.cloud.spring.pubsub.core.PubSubTemplate;
 import com.gsk.ecom.model.payment.PaymentNotificationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
