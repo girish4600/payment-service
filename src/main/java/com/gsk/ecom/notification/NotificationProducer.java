@@ -25,6 +25,6 @@ public class NotificationProducer {
 
     public void sendNotification(PaymentNotificationRequest request) {
         String payload = objectMapper.writeValueAsString(request);
-        pubSubTemplate.publish("order-topic", payload);
+        pubSubTemplate.publish("payment-topic", payload);
     }
 }
